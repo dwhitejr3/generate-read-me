@@ -4,6 +4,39 @@ const inquirer = require("inquirer");
 const { type } = require('os');
 
 // TODO: Create an array of questions for user input
+const generateReadME = ({title, description, installation, usage, contribution,test}) =>
+    `# ${title}
+
+## Table of Contents
+
+- [Description](#decription)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contribution](#contributions)
+- [Test](#test)
+
+ ## Decription
+
+   
+${description}
+
+## Installation
+    
+${installation}
+
+## Usage
+
+
+${usage}
+
+## Contributions
+ 
+${contribution}
+
+## Test
+
+${test}`;
+
 inquirer
     .prompt([
         {
@@ -37,47 +70,19 @@ inquirer
             message: 'provide instructions on how to test your project',
         },
     ])
+        .then((answers)=> {
+            const readMePageContent = generateReadME(answers)
 
-// TODO: Create a function to write README file
-const generateReadME = ({title, description, installation, usage, contribution,test}) =>
-`# ${title}
+            fs.writeFile('readme.md', readMePageContent, (err) => 
+                err ? console.log(err) : console.log('succesfully created readme.md')
+            ); 
 
-## Table of Contents
+                   
+        })
+        // TODO: Create a function to write README file
+        
+         // TODO: Create a function to initialize app
+                    function init() {}
 
-- [Description](#decription)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contribution](#contributions)
-- [Test](#test)
-
-
-## Decription
-
-bash
-${description}
-
-## Installation
-bash
-${installation}
-
-## Usage
-
-bash
-${usage}
-
-## Contributions
-bash
-${contribution}
-
-## Test
-bash
-${test}
-
-`
-fs writeToFile('readme.md', generateReadME) {}
-
-// TODO: Create a function to initialize app
-function init() {}
-
-// Function call to initialize app
-init();
+                    // Function call to initialize app
+                    init();
